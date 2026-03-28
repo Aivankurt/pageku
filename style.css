@@ -1,12 +1,11 @@
-/* ================================================================
-    PHILIPPINE ARTISTRY - MASTER STYLE SHEET
-    Project: Multimedia Portfolio
-    Author: Aivan Kurt S. Ordoñez (Kurt Animate)
-    Updated: March 2026
-================================================================
-*/
+/* ==========================================================================
+   PROJECT: PHILIPPINE ARTISTRY - MASTER STYLESHEET
+   AUTHOR: Aivan Kurt S. Ordoñez (Kurt Animate)
+   VERSION: 3.0 (Final Revision - All Features Restored)
+   DESCRIPTION: Full UI/UX styling for Home, Tutorials, and Arts & History.
+   ========================================================================== */
 
-/* --- 1. ROOT VARIABLES & THEME DEFINITION --- */
+/* --- 1. CORE VARIABLES & THEMING --- */
 :root {
     /* Color Palette */
     --primary-brown: #5d4037;
@@ -17,27 +16,34 @@
     --yellow-tint: rgba(244, 236, 207, 0.7);
     --bg-overlay: rgba(244, 236, 207, 0.85);
 
+    /* Typography Sizes */
+    --fs-h1: 5.5rem;
+    --fs-h2: 4.5rem;
+    --fs-card-title: 2.2rem;
+    --fs-body: 1.1rem;
+
     /* Shadows & Effects */
     --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    --inner-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-    --text-shadow-light: 2px 2px 4px rgba(0,0,0,0.1);
+    --heavy-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    --text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     
-    /* Layout Constants */
+    /* Layout */
     --border-radius-lg: 35px;
     --border-radius-md: 20px;
-    --border-radius-sm: 12px;
-    --transition-standard: all 0.3s ease-in-out;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- 2. GLOBAL RESET --- */
+/* --- 2. GLOBAL RESET & BASE STYLES --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
 }
 
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
@@ -50,23 +56,25 @@ body {
     align-items: center;
     overflow-x: hidden;
     
-    /* Starry Night Background Implementation */
+    /* Starry Night Background with Dynamic Tint */
     background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
                 url('https://cdn.luxatic.com/wp-content/uploads/2019/02/Vincent-van-Gogh.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
-/* --- 3. TOP NAVIGATION BAR --- */
+/* --- 3. TOP NAVIGATION (HEADER) --- */
 .nav {
     background-color: var(--primary-brown);
     width: 100%;
-    padding: 20px 0;
+    padding: 22px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    border-bottom: 2px solid rgba(255,255,255,0.05);
 }
 
 .nav-list {
@@ -81,32 +89,33 @@ body {
     text-decoration: none;
     color: var(--nav-gold);
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     text-transform: capitalize;
-    letter-spacing: 0.5px;
-    transition: var(--transition-standard);
+    letter-spacing: 0.8px;
+    transition: var(--transition);
 }
 
 .nav-link:hover {
     color: #ffffff;
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
-    transform: translateY(-2px);
+    text-shadow: 0 0 12px rgba(255,255,255,0.6);
+    transform: scale(1.05);
 }
 
-/* --- 4. VERTICAL SIDEBAR TABS --- */
+/* --- 4. FIXED VERTICAL SIDEBAR TABS --- */
 .side-menu {
     position: fixed;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(93, 64, 55, 0.9);
-    padding: 40px 15px;
+    background-color: rgba(93, 64, 55, 0.92);
+    padding: 45px 15px;
     border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
     display: flex;
     flex-direction: column;
-    gap: 45px;
+    gap: 50px;
     z-index: 999;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .side-link {
@@ -116,64 +125,67 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: var(--transition-standard);
+    letter-spacing: 2.5px;
+    transition: var(--transition);
 }
 
 .side-link:hover {
     color: var(--nav-gold);
-    transform: rotate(180deg) scale(1.15);
+    transform: rotate(180deg) scale(1.2) translateX(5px);
 }
 
-/* --- 5. MAIN CONTENT CONTAINERS --- */
+/* --- 5. MAIN CONTAINER ARCHITECTURE --- */
 main {
     flex: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 80px 20px;
+    padding: 80px 25px;
 }
 
-/* The scrollable white "Paper" container */
+/* Central White Content Box (Tutorials & History) */
 .content-container {
     background: var(--white-paper);
     width: 100%;
-    max-width: 1150px;
-    padding: 60px 45px;
+    max-width: 1200px;
+    padding: 70px 50px;
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--heavy-shadow);
     text-align: center;
     margin-bottom: 60px;
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
 }
 
-/* --- 6. TYPOGRAPHY & HEADERS --- */
+/* --- 6. TYPOGRAPHY & HEADER STYLES --- */
 .home-title {
     font-family: 'Cinzel', serif;
-    font-size: 5.5rem;
+    font-size: var(--fs-h1);
     color: #1a237e;
     margin-bottom: 0;
-    text-shadow: var(--text-shadow-light);
+    text-shadow: var(--text-shadow);
+    letter-spacing: 2px;
 }
 
 .home-subtitle {
     font-style: italic;
     color: var(--primary-brown);
-    font-size: 2rem;
+    font-size: 2.1rem;
     margin-bottom: 50px;
     font-weight: 400;
 }
 
 .page-header {
     font-family: 'Bangers', cursive;
-    font-size: 4.5rem;
+    font-size: var(--fs-h2);
     color: var(--accent-orange);
     text-transform: uppercase;
-    margin-bottom: 60px;
-    letter-spacing: 4px;
+    margin-bottom: 70px;
+    letter-spacing: 5px;
     -webkit-text-stroke: 1px rgba(0,0,0,0.05);
 }
 
@@ -182,36 +194,38 @@ main {
     text-decoration: none;
     color: inherit;
     display: block;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
+    outline: none;
 }
 
 .card, .history-card {
     background: #ffffff;
-    padding: 40px;
+    padding: 45px;
     border-radius: var(--border-radius-md);
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 45px;
     text-align: left;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    border: 1px solid #f5f5f5;
-    transition: var(--transition-standard);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border: 1px solid #f8f8f8;
+    transition: var(--transition);
 }
 
 .card:hover, .history-card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: var(--nav-gold);
 }
 
-/* Artist Profile Circles (Juan Luna, Amorsolo, etc.) */
+/* Artist Circular Profiles (Luna, Amorsolo, etc.) */
 .artist-pic {
-    width: 170px;
-    height: 170px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     overflow: hidden;
-    border: 6px solid var(--primary-brown);
+    border: 7px solid var(--primary-brown);
     flex-shrink: 0;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
 .artist-pic img {
@@ -220,113 +234,127 @@ main {
     object-fit: cover;
 }
 
-/* Rectangular Previews for Art/Videos */
+/* Rectangular Previews (Spoliarium, Palay Maiden, YT Thumbs) */
 .card-thumb, .art-preview {
-    width: 320px;
-    border-radius: var(--border-radius-sm);
+    width: 340px;
+    border-radius: 15px;
     flex-shrink: 0;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 /* Card Text Styling */
 .artist-info h2, .card-text h3 {
     color: var(--accent-orange);
-    font-size: 2.2rem;
+    font-size: var(--fs-card-title);
     margin-bottom: 15px;
+    font-weight: 700;
 }
 
 .modern-header {
     font-family: 'Bangers', cursive;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
 }
 
 .artist-info p, .card-text p {
-    font-size: 1.1rem;
-    color: #5d4037;
+    font-size: 1.15rem;
+    color: #4e342e;
     line-height: 1.8;
 }
 
-/* --- 8. LOGIN FORM STYLES --- */
+/* --- 8. LOGIN FORM COMPONENTS --- */
 .login-card {
     background: #ffffff;
-    padding: 60px;
+    padding: 65px;
     border-radius: var(--border-radius-lg);
     width: 100%;
-    max-width: 500px;
-    box-shadow: var(--card-shadow);
+    max-width: 520px;
+    box-shadow: var(--heavy-shadow);
     text-align: center;
+    border: 1px solid #f0f0f0;
 }
 
 .login-card h3 {
-    margin-bottom: 35px;
-    font-size: 1.8rem;
+    margin-bottom: 40px;
+    font-size: 2rem;
     color: var(--primary-brown);
     font-weight: 800;
 }
 
 .form-input {
     width: 100%;
-    padding: 20px;
-    margin-bottom: 25px;
+    padding: 22px;
+    margin-bottom: 28px;
     border: 2px solid #eeeeee;
-    border-radius: 15px;
-    font-size: 1.05rem;
+    border-radius: 18px;
+    font-size: 1.1rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-input:focus {
     border-color: var(--primary-brown);
+    box-shadow: 0 0 10px rgba(93, 64, 55, 0.1);
 }
 
 .btn-submit {
     background: var(--primary-brown);
     color: #ffffff;
     border: none;
-    padding: 20px;
+    padding: 22px;
     width: 100%;
-    border-radius: 15px;
+    border-radius: 18px;
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     cursor: pointer;
-    transition: var(--transition-standard);
+    transition: var(--transition);
 }
 
 .btn-submit:hover {
     background: var(--dark-brown);
-    transform: scale(1.02);
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* --- 9. FOOTER SECTION --- */
+/* --- 9. FOOTER --- */
 .footer {
     width: 100%;
     text-align: center;
-    padding: 60px 20px;
+    padding: 70px 20px;
     color: var(--primary-brown);
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .footer p {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
-/* --- 10. MEDIA QUERIES (RESPONSIVENESS) --- */
-@media (max-width: 950px) {
+/* --- 10. RESPONSIVE UTILITIES --- */
+@media (max-width: 1024px) {
+    .content-container {
+        padding: 40px 25px;
+    }
+    
     .card, .history-card {
         flex-direction: column;
         text-align: center;
-        padding: 30px;
+        gap: 30px;
     }
     
     .side-menu {
-        display: none;
+        display: none; /* Auto-hide sidebar on mobile for cleaner UI */
     }
     
     .home-title {
-        font-size: 3.5rem;
+        font-size: 4rem;
     }
     
     .page-header {
-        font-size: 3rem;
+        font-size: 3.2rem;
     }
 }
+
+/* ==========================================================================
+   END OF STYLESHEET
+   ========================================================================== */
