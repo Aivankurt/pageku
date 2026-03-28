@@ -1,44 +1,54 @@
 /* ==========================================================================
    PROJECT: PHILIPPINE ARTISTRY - MASTER STYLESHEET
    AUTHOR: Aivan Kurt S. Ordoñez (Kurt Animate)
-   VERSION: 3.0 (Final Revision - All Features Restored)
-   DESCRIPTION: Full UI/UX styling for Home, Tutorials, and Arts & History.
+   VERSION: 4.0 (300+ Line Expanded Edition)
+   DATE: March 2026
    ========================================================================== */
 
-/* --- 1. CORE VARIABLES & THEMING --- */
+/* --- 1. CORE VARIABLES & THEME CONFIGURATION --- */
 :root {
-    /* Color Palette */
+    /* Primary Color Palette */
     --primary-brown: #5d4037;
     --dark-brown: #3e2723;
     --accent-orange: #bf360c;
     --nav-gold: #ffcc80;
+    --link-hover: #ffffff;
+
+    /* Background & Overlay Colors */
     --white-paper: rgba(255, 255, 255, 0.95);
     --yellow-tint: rgba(244, 236, 207, 0.7);
     --bg-overlay: rgba(244, 236, 207, 0.85);
+    --sidebar-bg: rgba(93, 64, 55, 0.92);
 
-    /* Typography Sizes */
-    --fs-h1: 5.5rem;
-    --fs-h2: 4.5rem;
-    --fs-card-title: 2.2rem;
-    --fs-body: 1.1rem;
+    /* Typography Scale */
+    --fs-giant: 5.5rem;
+    --fs-header: 4.5rem;
+    --fs-title-md: 2.2rem;
+    --fs-subtitle: 2rem;
+    --fs-body-lg: 1.15rem;
+    --fs-body-sm: 0.95rem;
 
-    /* Shadows & Effects */
+    /* Shadows & Depth */
     --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    --heavy-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    --text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    --heavy-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    --text-shadow-soft: 2px 2px 4px rgba(0,0,0,0.1);
+    --nav-shadow: 0 5px 20px rgba(0,0,0,0.4);
     
-    /* Layout */
-    --border-radius-lg: 35px;
-    --border-radius-md: 20px;
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Layout Tokens */
+    --border-radius-xl: 40px;
+    --border-radius-lg: 25px;
+    --border-radius-md: 18px;
+    --border-radius-sm: 12px;
+    --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* --- 2. GLOBAL RESET & BASE STYLES --- */
+/* --- 2. GLOBAL RESET & FOUNDATION --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -50,13 +60,13 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: var(--dark-brown);
     min-height: 100vh;
-    line-height: 1.6;
+    line-height: 1.7;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
     
-    /* Starry Night Background with Dynamic Tint */
+    /* Starry Night Background with Van Gogh implementation */
     background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
                 url('https://cdn.luxatic.com/wp-content/uploads/2019/02/Vincent-van-Gogh.jpg');
     background-size: cover;
@@ -69,12 +79,12 @@ body {
 .nav {
     background-color: var(--primary-brown);
     width: 100%;
-    padding: 22px 0;
+    padding: 24px 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    border-bottom: 2px solid rgba(255,255,255,0.05);
+    z-index: 1001;
+    box-shadow: var(--nav-shadow);
+    border-bottom: 2px solid rgba(255,255,255,0.08);
 }
 
 .nav-list {
@@ -82,7 +92,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    gap: 65px;
 }
 
 .nav-link {
@@ -92,13 +102,28 @@ body {
     font-size: 1.15rem;
     text-transform: capitalize;
     letter-spacing: 0.8px;
-    transition: var(--transition);
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--link-hover);
+    transition: var(--transition-smooth);
 }
 
 .nav-link:hover {
-    color: #ffffff;
-    text-shadow: 0 0 12px rgba(255,255,255,0.6);
-    transform: scale(1.05);
+    color: var(--link-hover);
+    text-shadow: 0 0 15px rgba(255,255,255,0.7);
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 /* --- 4. FIXED VERTICAL SIDEBAR TABS --- */
@@ -107,14 +132,14 @@ body {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(93, 64, 55, 0.92);
-    padding: 45px 15px;
-    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    background-color: var(--sidebar-bg);
+    padding: 50px 16px;
+    border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 55px;
     z-index: 999;
-    box-shadow: 5px 0 25px rgba(0,0,0,0.35);
+    box-shadow: 6px 0 30px rgba(0,0,0,0.35);
     border: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -127,66 +152,69 @@ body {
     font-weight: 700;
     font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
-    transition: var(--transition);
+    letter-spacing: 3px;
+    transition: var(--transition-smooth);
 }
 
 .side-link:hover {
     color: var(--nav-gold);
-    transform: rotate(180deg) scale(1.2) translateX(5px);
+    transform: rotate(180deg) scale(1.25) translateX(8px);
+    text-shadow: 0 0 8px rgba(255,204,128,0.5);
 }
 
-/* --- 5. MAIN CONTAINER ARCHITECTURE --- */
+/* --- 5. MAIN CONTENT LAYOUT --- */
 main {
     flex: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 80px 25px;
+    padding: 90px 30px;
 }
 
-/* Central White Content Box (Tutorials & History) */
+/* Central Content Container (Tutorials & History) */
 .content-container {
     background: var(--white-paper);
     width: 100%;
-    max-width: 1200px;
-    padding: 70px 50px;
-    border-radius: var(--border-radius-lg);
+    max-width: 1250px;
+    padding: 80px 60px;
+    border-radius: var(--border-radius-xl);
     box-shadow: var(--heavy-shadow);
     text-align: center;
-    margin-bottom: 60px;
-    border: 1px solid rgba(255,255,255,0.5);
+    margin-bottom: 70px;
+    border: 1px solid rgba(255,255,255,0.6);
     position: relative;
-    overflow: hidden;
+    backdrop-filter: blur(5px);
 }
 
-/* --- 6. TYPOGRAPHY & HEADER STYLES --- */
+/* --- 6. TYPOGRAPHY & HEADER REFINEMENT --- */
 .home-title {
     font-family: 'Cinzel', serif;
-    font-size: var(--fs-h1);
+    font-size: var(--fs-giant);
     color: #1a237e;
-    margin-bottom: 0;
-    text-shadow: var(--text-shadow);
-    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-shadow: var(--text-shadow-soft);
+    letter-spacing: 3px;
 }
 
 .home-subtitle {
     font-style: italic;
     color: var(--primary-brown);
-    font-size: 2.1rem;
-    margin-bottom: 50px;
+    font-size: var(--fs-subtitle);
+    margin-bottom: 55px;
     font-weight: 400;
+    letter-spacing: 1px;
 }
 
 .page-header {
     font-family: 'Bangers', cursive;
-    font-size: var(--fs-h2);
+    font-size: var(--fs-header);
     color: var(--accent-orange);
     text-transform: uppercase;
-    margin-bottom: 70px;
-    letter-spacing: 5px;
-    -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+    margin-bottom: 80px;
+    letter-spacing: 6px;
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.06);
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.05);
 }
 
 /* --- 7. CARDS (TUTORIALS & HISTORY) --- */
@@ -194,38 +222,39 @@ main {
     text-decoration: none;
     color: inherit;
     display: block;
-    margin-bottom: 45px;
+    margin-bottom: 50px;
     outline: none;
 }
 
 .card, .history-card {
     background: #ffffff;
-    padding: 45px;
-    border-radius: var(--border-radius-md);
+    padding: 50px;
+    border-radius: var(--border-radius-lg);
     display: flex;
     align-items: center;
-    gap: 45px;
+    gap: 50px;
     text-align: left;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    border: 1px solid #f8f8f8;
-    transition: var(--transition);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+    border: 1px solid #f2f2f2;
+    transition: var(--transition-smooth);
 }
 
 .card:hover, .history-card:hover {
-    transform: translateY(-10px) scale(1.01);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transform: translateY(-12px) scale(1.015);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.18);
     border-color: var(--nav-gold);
 }
 
-/* Artist Circular Profiles (Luna, Amorsolo, etc.) */
+/* Artist Profile Implementation (Luna & Amorsolo) */
 .artist-pic {
-    width: 180px;
-    height: 180px;
+    width: 190px;
+    height: 190px;
     border-radius: 50%;
     overflow: hidden;
-    border: 7px solid var(--primary-brown);
+    border: 8px solid var(--primary-brown);
     flex-shrink: 0;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    transition: var(--transition-smooth);
 }
 
 .artist-pic img {
@@ -234,124 +263,164 @@ main {
     object-fit: cover;
 }
 
-/* Rectangular Previews (Spoliarium, Palay Maiden, YT Thumbs) */
-.card-thumb, .art-preview {
-    width: 340px;
-    border-radius: 15px;
-    flex-shrink: 0;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-    border: 1px solid rgba(0,0,0,0.05);
+.history-card:hover .artist-pic {
+    border-color: var(--accent-orange);
+    transform: rotate(5deg);
 }
 
-/* Card Text Styling */
+/* Content Previews (Artwork & Video Thumbs) */
+.card-thumb, .art-preview {
+    width: 360px;
+    border-radius: var(--border-radius-md);
+    flex-shrink: 0;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.22);
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: var(--transition-smooth);
+}
+
+.card:hover .card-thumb {
+    transform: scale(1.04);
+}
+
+/* Text Element Styling inside Cards */
 .artist-info h2, .card-text h3 {
     color: var(--accent-orange);
-    font-size: var(--fs-card-title);
-    margin-bottom: 15px;
+    font-size: var(--fs-title-md);
+    margin-bottom: 18px;
     font-weight: 700;
 }
 
 .modern-header {
     font-family: 'Bangers', cursive;
-    letter-spacing: 2.5px;
+    letter-spacing: 3px;
+    color: #d84315 !important;
 }
 
 .artist-info p, .card-text p {
-    font-size: 1.15rem;
+    font-size: var(--fs-body-lg);
     color: #4e342e;
-    line-height: 1.8;
+    line-height: 1.9;
+    text-align: justify;
 }
 
-/* --- 8. LOGIN FORM COMPONENTS --- */
+/* --- 8. LOGIN FORM ARCHITECTURE --- */
 .login-card {
     background: #ffffff;
-    padding: 65px;
-    border-radius: var(--border-radius-lg);
+    padding: 70px;
+    border-radius: var(--border-radius-xl);
     width: 100%;
-    max-width: 520px;
+    max-width: 550px;
     box-shadow: var(--heavy-shadow);
     text-align: center;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #f5f5f5;
 }
 
 .login-card h3 {
-    margin-bottom: 40px;
-    font-size: 2rem;
+    margin-bottom: 45px;
+    font-size: 2.2rem;
     color: var(--primary-brown);
     font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .form-input {
     width: 100%;
-    padding: 22px;
-    margin-bottom: 28px;
+    padding: 24px;
+    margin-bottom: 30px;
     border: 2px solid #eeeeee;
-    border-radius: 18px;
-    font-size: 1.1rem;
+    border-radius: 20px;
+    font-size: 1.15rem;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: var(--transition-smooth);
+    background: #fafafa;
 }
 
 .form-input:focus {
     border-color: var(--primary-brown);
-    box-shadow: 0 0 10px rgba(93, 64, 55, 0.1);
+    box-shadow: 0 0 15px rgba(93, 64, 55, 0.15);
+    background: #ffffff;
 }
 
 .btn-submit {
     background: var(--primary-brown);
     color: #ffffff;
     border: none;
-    padding: 22px;
+    padding: 24px;
     width: 100%;
-    border-radius: 18px;
+    border-radius: 20px;
     font-weight: 700;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     cursor: pointer;
-    transition: var(--transition);
+    transition: var(--transition-smooth);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 
 .btn-submit:hover {
     background: var(--dark-brown);
-    transform: scale(1.03);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
 }
 
-/* --- 9. FOOTER --- */
+/* --- 9. FOOTER DECORATION --- */
 .footer {
     width: 100%;
     text-align: center;
-    padding: 70px 20px;
+    padding: 80px 20px;
     color: var(--primary-brown);
-    font-size: 1.2rem;
-    font-weight: 400;
+    font-size: 1.25rem;
+    font-weight: 500;
+    background: linear-gradient(to top, rgba(255,255,255,0.2), transparent);
 }
 
 .footer p {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* --- 10. RESPONSIVE UTILITIES --- */
-@media (max-width: 1024px) {
+/* --- 10. RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 1100px) {
     .content-container {
-        padding: 40px 25px;
+        padding: 50px 30px;
     }
     
     .card, .history-card {
         flex-direction: column;
         text-align: center;
-        gap: 30px;
+        gap: 35px;
+        padding: 40px;
     }
     
-    .side-menu {
-        display: none; /* Auto-hide sidebar on mobile for cleaner UI */
+    .card-thumb, .art-preview {
+        width: 100%;
+        max-width: 450px;
     }
     
     .home-title {
-        font-size: 4rem;
+        font-size: 4.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .side-menu {
+        display: none; /* Optimized for mobile UX */
+    }
+    
+    .nav-list {
+        gap: 30px;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
     }
     
     .page-header {
-        font-size: 3.2rem;
+        font-size: 3rem;
+    }
+    
+    .login-card {
+        padding: 40px 25px;
     }
 }
 
