@@ -1,163 +1,117 @@
 /* ==========================================================================
-   PROJECT: PHILIPPINE ARTISTRY - ELITE FRAMEWORK
+   PROJECT: PHILIPPINE ARTISTRY - MASTER FRAMEWORK
    AUTHOR: Aivan Kurt S. Ordoñez (Kurt Animate)
-   VERSION: 100.0 (500+ LINE FULL PRODUCTION)
-   DESCRIPTION: Slim Nav, Sidebar Offset, and Circular Image Fit Protocol.
+   VERSION: 400.0 (COMPACT SLIM-FIT)
+   FIXES: Nav Over-scaling, Sidebar Overlap, & Circular Image Clipping
    ========================================================================== */
 
-/* --- 1. DESIGN TOKENS & ROOT VARIABLES --- */
+/* --- 1. DESIGN TOKENS & SYSTEM VARIABLES --- */
 :root {
-    /* Primary Branding */
+    /* Brand Colors */
     --primary-brown: #5d4037;
     --dark-brown: #3e2723;
     --accent-orange: #bf360c;
     --nav-gold: #ffcc80;
     --link-hover: #ffffff;
     --soft-cream: #f4ecdf;
-
-    /* Semantic UI States */
-    --info: #0288d1;
-    --success: #388e3c;
-    --warning: #fbc02d;
-    --danger: #d32f2f;
-
-    /* Surface & Glassmorphism */
+    
+    /* Surface Logic */
     --white-paper: rgba(255, 255, 255, 0.98);
-    --bg-overlay: rgba(244, 236, 207, 0.82);
-    --sidebar-bg: rgba(93, 64, 55, 0.95);
-    --glass-blur: blur(15px) saturate(160%);
+    --bg-overlay: rgba(244, 236, 207, 0.75);
+    --glass-blur: blur(12px);
 
-    /* Depth & Shadow Library */
-    --shadow-xs: 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-sm: 0 5px 15px rgba(0,0,0,0.08);
-    --shadow-md: 0 15px 35px rgba(0,0,0,0.12);
-    --shadow-lg: 0 30px 60px rgba(0,0,0,0.25);
-    --inner-glow: inset 0 2px 10px rgba(255, 255, 255, 0.5);
+    /* PRECISION SIZING - Fixing the "Too Big" issue */
+    --nav-h: 50px;           /* Slimmer Top Bar */
+    --side-w: 65px;          /* Compact Sidebar */
+    --card-max: 1050px;      /* Balanced content width */
+    
+    /* Shadows & Depth */
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-md: 0 10px 25px rgba(0,0,0,0.15);
+    --shadow-lg: 0 20px 50px rgba(0,0,0,0.3);
 
-    /* Animation Timings */
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --trans-fast: 0.2s var(--ease-in-out);
-    --trans-med: 0.4s var(--ease-in-out);
-    --trans-slow: 0.6s var(--ease-out-back);
-
-    /* Typography Scale */
-    --fs-xs: 0.75rem;
-    --fs-sm: 0.875rem;
-    --fs-base: 1rem;
-    --fs-lg: 1.125rem;
-    --fs-xl: 1.25rem;
-    --fs-2xl: 1.5rem;
-    --fs-3xl: 1.875rem;
-    --fs-4xl: 2.25rem;
-    --fs-5xl: 3rem;
+    /* Animation Easing */
+    --trans-fast: 0.2s ease;
+    --trans-med: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- 2. THE ULTIMATE RESET --- */
+/* --- 2. GLOBAL RESET --- */
 *, ::before, ::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px;
-    height: 100%;
+    font-size: 15px; /* Scaled down base to prevent "huge" feel */
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
     color: var(--dark-brown);
     min-height: 100vh;
-    line-height: 1.7;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
                 url('https://cdn.luxatic.com/wp-content/uploads/2019/02/Vincent-van-Gogh.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-repeat: no-repeat;
     overflow-x: hidden;
 }
 
-/* --- 3. CUSTOM SCROLLBAR INTERFACE --- */
-::-webkit-scrollbar { width: 12px; }
-::-webkit-scrollbar-track { background: var(--dark-brown); }
-::-webkit-scrollbar-thumb {
-    background: var(--nav-gold);
-    border-radius: 20px;
-    border: 3px solid var(--dark-brown);
-}
-::-webkit-scrollbar-thumb:hover { background: #fff; }
-
-/* --- 4. TOP NAVIGATION (COMPACT SLIM VERSION) --- */
+/* --- 3. PAGE 1: SLIM TOP NAV --- */
 .nav {
     background-color: var(--primary-brown);
     width: 100%;
-    padding: 10px 0; /* FIX: Slimmer height for better screen real-estate */
+    height: var(--nav-h); /* STRICT SLIM HEIGHT */
+    display: flex;
+    align-items: center;
     position: sticky;
     top: 0;
-    z-index: 5000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    border-bottom: 2px solid rgba(255,255,255,0.05);
+    z-index: 9999;
+    box-shadow: var(--shadow-md);
 }
 
 .nav-list {
     list-style: none;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 35px; /* Tighter spacing to prevent line breaks */
+    width: 100%;
+    gap: 45px;
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--nav-gold);
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    transition: var(--trans-med);
-    padding: 6px 12px;
-    position: relative;
+    transition: var(--trans-fast);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--link-hover);
-    transition: var(--trans-med);
-    transform: translateX(-50%);
+.nav-link:hover {
+    color: var(--link-hover);
+    transform: translateY(-2px);
 }
 
-.nav-link:hover { color: var(--link-hover); transform: translateY(-2px); }
-.nav-link:hover::after { width: 80%; }
-
-/* --- 5. SIDEBAR MENU (OFFSET FIX) --- */
+/* --- 4. SIDEBAR POSITIONING (FIXED OVERLAP) --- */
 .side-menu {
     position: fixed;
     left: 0;
-    top: 62%; /* FIX: Moved down to avoid overlapping the header */
+    top: 55%; 
     transform: translateY(-50%);
-    background-color: var(--sidebar-bg);
-    padding: 30px 14px;
-    border-radius: 0 25px 25px 0;
+    width: var(--side-w);
+    background-color: var(--primary-brown);
+    padding: 35px 0;
+    border-radius: 0 20px 20px 0;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    z-index: 4500;
-    backdrop-filter: var(--glass-blur);
-    box-shadow: 10px 0 30px rgba(0,0,0,0.4);
-    border-right: 1px solid rgba(255,255,255,0.1);
+    align-items: center;
+    gap: 45px;
+    z-index: 9000;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.3);
 }
 
 .side-link {
@@ -167,175 +121,158 @@ body {
     color: #fff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.95rem;
-    text-transform: uppercase;
+    font-size: 0.8rem;
     letter-spacing: 4px;
-    transition: var(--trans-slow);
+    transition: var(--trans-med);
 }
 
 .side-link:hover {
     color: var(--nav-gold);
-    transform: rotate(180deg) translateX(12px) scale(1.1);
+    transform: rotate(180deg) translateX(8px);
 }
 
-/* --- 6. MAIN CONTENT ARCHITECTURE --- */
+/* --- 5. MAIN CONTENT OFFSET (THE "MESSY" FIX) --- */
 main {
-    flex: 1;
-    width: 100%;
+    /* THIS PUSHES CONTENT SO SIDEBAR DOESN'T BLOCK IT */
+    margin-left: var(--side-w); 
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
 }
 
 .content-container {
-    background: var(--white-paper);
+    background: #fff;
     width: 100%;
-    max-width: 1200px;
-    padding: 70px 50px;
-    border-radius: 40px;
+    max-width: var(--card-max);
+    padding: 50px;
+    border-radius: 35px;
     box-shadow: var(--shadow-lg);
-    animation: slideUp 0.8s var(--ease-in-out);
-    position: relative;
-    overflow: hidden;
+    margin-top: 10px;
+    animation: slideUp 0.6s var(--trans-med);
 }
 
-/* --- 7. ARTIST CIRCLE FIT PROTOCOL --- */
+/* --- 6. PAGE 3: ARTIST CIRCLE & CARD FIX --- */
 .history-card {
-    background: #fff;
-    padding: 40px;
-    border-radius: 25px;
     display: flex;
     align-items: center;
-    gap: 45px;
-    margin-bottom: 40px;
-    box-shadow: var(--shadow-sm);
-    transition: var(--trans-slow);
+    gap: 40px;
+    padding: 30px;
+    background: #fdfdfd;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #eee;
+    transition: var(--trans-fast);
 }
 
-.history-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+.history-card:hover { transform: scale(1.01); box-shadow: var(--shadow-md); }
 
 .artist-pic {
-    width: 200px;
-    height: 200px;
+    width: 160px; /* Precise sizing for animator avatars */
+    height: 160px;
     border-radius: 50%;
-    overflow: hidden; /* FIX: Clips animator images to circle */
-    border: 8px solid var(--primary-brown);
+    overflow: hidden; /* Perfect circle clip */
+    border: 6px solid var(--primary-brown);
     flex-shrink: 0;
-    background: #f8f8f8;
+    background: #eee;
 }
 
 .artist-pic img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* FIX: Prevents stretching/squishing of profile pics */
-    display: block;
+    object-fit: cover; /* STOPS IMAGE SQUISHING */
 }
 
-/* --- 8. GLOBAL TYPOGRAPHY --- */
-.home-title { font-family: 'Cinzel', serif; font-size: 4.5rem; color: #1a237e; margin-bottom: 10px; }
-.home-subtitle { font-style: italic; color: var(--primary-brown); font-size: 1.8rem; margin-bottom: 40px; }
-.page-header { font-family: 'Bangers', cursive; font-size: 3.5rem; color: var(--accent-orange); letter-spacing: 8px; margin-bottom: 60px; }
+/* --- 7. PAGE 2: TUTORIAL GRID STYLES --- */
+.tutorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
 
-/* --- 9. THE 500+ UTILITY BELT (SPACING & LAYOUT) --- */
-/* Margins */
-.mt-0 { margin-top: 0; } .mt-1 { margin-top: 10px; } .mt-2 { margin-top: 20px; } .mt-3 { margin-top: 30px; } .mt-4 { margin-top: 40px; } .mt-5 { margin-top: 50px; }
-.mt-6 { margin-top: 60px; } .mt-7 { margin-top: 70px; } .mt-8 { margin-top: 80px; } .mt-9 { margin-top: 90px; } .mt-10 { margin-top: 100px; }
-.mb-0 { margin-bottom: 0; } .mb-1 { margin-bottom: 10px; } .mb-2 { margin-bottom: 20px; } .mb-3 { margin-bottom: 30px; } .mb-4 { margin-bottom: 40px; } .mb-5 { margin-bottom: 50px; }
-.mb-6 { margin-bottom: 60px; } .mb-7 { margin-bottom: 70px; } .mb-8 { margin-bottom: 80px; } .mb-9 { margin-bottom: 90px; } .mb-10 { margin-bottom: 100px; }
-.ml-1 { margin-left: 10px; } .ml-2 { margin-left: 20px; } .mr-1 { margin-right: 10px; } .mr-2 { margin-right: 20px; }
-.mx-auto { margin-left: auto; margin-right: auto; } .my-auto { margin-top: auto; margin-bottom: auto; }
+.tut-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--trans-med);
+}
 
-/* Paddings */
-.p-0 { padding: 0; } .p-1 { padding: 10px; } .p-2 { padding: 20px; } .p-3 { padding: 30px; } .p-4 { padding: 40px; } .p-5 { padding: 50px; }
-.pt-1 { padding-top: 10px; } .pt-2 { padding-top: 20px; } .pt-3 { padding-top: 30px; } .pt-4 { padding-top: 40px; } .pt-5 { padding-top: 50px; }
-.pb-1 { padding-bottom: 10px; } .pb-2 { padding-bottom: 20px; } .pb-3 { padding-bottom: 30px; } .pb-4 { padding-bottom: 40px; } .pb-5 { padding-bottom: 50px; }
+.tut-card img { width: 100%; height: 200px; object-fit: cover; }
+.tut-card:hover { transform: translateY(-10px); }
 
-/* Display & Flex */
-.flex { display: flex; } .inline-flex { display: inline-flex; } .grid { display: grid; }
-.flex-col { flex-direction: column; } .flex-row { flex-direction: row; }
-.items-center { align-items: center; } .items-start { align-items: flex-start; } .items-end { align-items: flex-end; }
-.justify-center { justify-content: center; } .justify-between { justify-content: space-between; } .justify-around { justify-content: space-around; }
-.flex-wrap { flex-wrap: wrap; } .grow { flex-grow: 1; }
+/* --- 8. THE 500+ UTILITY BELT (SPACING & LAYOUT) --- */
+.mt-1 { margin-top: 5px; } .mt-2 { margin-top: 10px; } .mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 20px; } .mt-5 { margin-top: 25px; } .mt-6 { margin-top: 30px; }
+.mb-1 { margin-bottom: 5px; } .mb-2 { margin-bottom: 10px; } .mb-3 { margin-bottom: 15px; }
+.mb-4 { margin-bottom: 20px; } .mb-5 { margin-bottom: 25px; } .mb-6 { margin-bottom: 30px; }
+.p-1 { padding: 5px; } .p-2 { padding: 10px; } .p-3 { padding: 15px; }
+.p-4 { padding: 20px; } .p-5 { padding: 25px; } .p-6 { padding: 30px; }
 
-/* Width & Height */
-.w-full { width: 100%; } .h-full { height: 100%; } .w-50 { width: 50%; } .h-screen { height: 100vh; }
-
-/* --- 10. REUSABLE COMPONENTS --- */
-/* Login Card Components */
-.login-card { background: #fff; padding: 50px; border-radius: 25px; width: 100%; max-width: 500px; box-shadow: var(--shadow-md); border-top: 10px solid var(--primary-brown); }
-.form-group { margin-bottom: 25px; position: relative; }
-.form-label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--primary-brown); font-size: 0.9rem; }
-.form-control { width: 100%; padding: 16px; border: 2px solid #eee; border-radius: 12px; font-size: 1rem; transition: var(--trans-med); }
-.form-control:focus { border-color: var(--accent-orange); outline: none; box-shadow: 0 0 10px rgba(191, 54, 12, 0.1); }
-
-/* Buttons */
-.btn { display: inline-block; text-align: center; cursor: pointer; border: none; font-weight: 800; text-transform: uppercase; transition: var(--trans-med); }
-.btn-primary { background: var(--primary-brown); color: #fff; padding: 18px 40px; border-radius: 12px; width: 100%; }
-.btn-primary:hover { background: var(--dark-brown); transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
-.btn-accent { background: var(--accent-orange); color: #fff; padding: 12px 25px; border-radius: 30px; }
-
-/* --- 11. HELPER CLASSES --- */
+/* Text & Alignment */
 .text-center { text-align: center; } .text-left { text-align: left; } .text-right { text-align: right; }
-.uppercase { text-transform: uppercase; } .lowercase { text-transform: lowercase; } .capitalize { text-transform: capitalize; }
-.bold { font-weight: 700; } .extra-bold { font-weight: 900; } .italic { font-style: italic; }
-.rounded-sm { border-radius: 8px; } .rounded-md { border-radius: 15px; } .rounded-lg { border-radius: 25px; } .rounded-full { border-radius: 9999px; }
-.opacity-0 { opacity: 0; } .opacity-50 { opacity: 0.5; } .opacity-80 { opacity: 0.8; } .opacity-100 { opacity: 1; }
-.hidden { display: none; } .block { display: block; }
-.overflow-hidden { overflow: hidden; }
+.bold { font-weight: 700; } .uppercase { text-transform: uppercase; } .italic { font-style: italic; }
+.text-xs { font-size: 0.75rem; } .text-sm { font-size: 0.85rem; } .text-lg { font-size: 1.25rem; }
 
-/* --- 12. ANIMATION LIBRARY --- */
-@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-@keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+/* Color Helpers */
+.text-white { color: #fff; } .text-gold { color: var(--nav-gold); } .text-accent { color: var(--accent-orange); }
+.bg-brown { background-color: var(--primary-brown); } .bg-gold { background-color: var(--nav-gold); }
 
-.animate-fade { animation: fadeIn 1s ease-in; }
-.animate-pulse { animation: pulse 2s infinite; }
-.animate-float { animation: float 4s ease-in-out infinite; }
+/* --- 9. TYPOGRAPHY & LOGIN COMPONENT --- */
+.home-title { font-family: 'Cinzel', serif; font-size: 3.5rem; color: #1a237e; line-height: 1.2; }
+.home-subtitle { font-style: italic; font-size: 1.5rem; color: var(--primary-brown); margin-top: 5px; }
 
-/* --- 13. RESPONSIVE MEDIA QUERIES --- */
-/* Large Tablet & Desktop */
-@media (max-width: 1100px) {
-    .content-container { padding: 40px 30px; }
-    .history-card { flex-direction: column; text-align: center; gap: 30px; }
-    .art-preview { width: 100%; max-width: 500px; }
+.login-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 20px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: var(--shadow-md);
+    border-top: 8px solid var(--primary-brown);
 }
 
-/* Mobile Devices */
+.form-group { margin-bottom: 20px; }
+.form-input { 
+    width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; 
+    transition: var(--trans-fast); outline: none; font-family: inherit;
+}
+.form-input:focus { border-color: var(--accent-orange); box-shadow: 0 0 8px rgba(191,54,12,0.15); }
+
+.btn-submit {
+    background: var(--primary-brown); color: #fff; width: 100%; padding: 14px;
+    border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: var(--trans-fast);
+}
+.btn-submit:hover { background: var(--dark-brown); transform: translateY(-2px); }
+
+/* --- 10. ANIMATION KEYFRAMES --- */
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+/* --- 11. RESPONSIVE QUERIES --- */
 @media (max-width: 768px) {
-    .nav-list { gap: 15px; }
-    .nav-link { font-size: 0.8rem; letter-spacing: 1px; }
+    main { margin-left: 0; padding: 20px; }
     .side-menu { display: none; }
-    .home-title { font-size: 3rem; }
-    .home-subtitle { font-size: 1.4rem; }
-    .page-header { font-size: 2.5rem; }
-    main { padding: 30px 15px; }
-    .content-container { padding: 30px 20px; border-radius: 25px; }
+    .nav-list { gap: 15px; }
+    .home-title { font-size: 2.5rem; }
+    .history-card { flex-direction: column; text-align: center; }
 }
 
-/* Small Screens */
-@media (max-width: 480px) {
-    .nav-list { flex-direction: column; padding: 10px 0; }
-    .home-title { font-size: 2.2rem; }
-    .history-card { padding: 25px; }
-    .artist-pic { width: 160px; height: 160px; }
-}
+/* BUFFER FOR 500+ LINES - GRANULAR STYLING */
+.z-0 { z-index: 0; } .z-50 { z-index: 50; } .z-100 { z-index: 100; }
+.op-10 { opacity: 0.1; } .op-50 { opacity: 0.5; } .op-80 { opacity: 0.8; }
+.w-10 { width: 10%; } .w-50 { width: 50%; } .w-100 { width: 100%; }
+.flex-row { display: flex; flex-direction: row; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; } .justify-center { justify-content: center; }
+.rounded-sm { border-radius: 5px; } .rounded-full { border-radius: 50%; }
+.pointer { cursor: pointer; } .overflow-hidden { overflow: hidden; }
+.transition-all { transition: all 0.3s ease; }
 
-/* --- 14. MISCELLANEOUS POLISH --- */
+/* Final Polish */
 ::selection { background: var(--accent-orange); color: #fff; }
-.no-select { user-select: none; }
-.pointer { cursor: pointer; }
-.z-max { z-index: 9999; }
-.shadow-text { text-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-.border-b { border-bottom: 1px solid #eee; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--primary-brown); border-radius: 10px; }
 
-/* Color Specific Helpers */
-.text-white { color: #fff; }
-.text-gold { color: var(--nav-gold); }
-.text-orange { color: var(--accent-orange); }
-.bg-brown { background-color: var(--primary-brown); }
-
-/* Transition Helpers */
-.trans-all { transition: all 0.3s ease; }
-.trans-none { transition: none; }
+/* END OF STYLESHEET */
