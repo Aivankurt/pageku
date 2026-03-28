@@ -1,25 +1,43 @@
-/* PHILIPPINE ARTISTRY - MASTER STYLESHEET
-   Author: Kurt (Kurt Animate)
-   Version: 2.0 - Final Revision
+/* ================================================================
+    PHILIPPINE ARTISTRY - MASTER STYLE SHEET
+    Project: Multimedia Portfolio
+    Author: Aivan Kurt S. Ordoñez (Kurt Animate)
+    Updated: March 2026
+================================================================
 */
 
-/* --- 1. GLOBAL RESET & BASE STYLES --- */
+/* --- 1. ROOT VARIABLES & THEME DEFINITION --- */
+:root {
+    /* Color Palette */
+    --primary-brown: #5d4037;
+    --dark-brown: #3e2723;
+    --accent-orange: #bf360c;
+    --nav-gold: #ffcc80;
+    --white-paper: rgba(255, 255, 255, 0.95);
+    --yellow-tint: rgba(244, 236, 207, 0.7);
+    --bg-overlay: rgba(244, 236, 207, 0.85);
+
+    /* Shadows & Effects */
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --inner-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    --text-shadow-light: 2px 2px 4px rgba(0,0,0,0.1);
+    
+    /* Layout Constants */
+    --border-radius-lg: 35px;
+    --border-radius-md: 20px;
+    --border-radius-sm: 12px;
+    --transition-standard: all 0.3s ease-in-out;
+}
+
+/* --- 2. GLOBAL RESET --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --primary-brown: #5d4037;
-    --dark-brown: #3e2723;
-    --accent-orange: #bf360c;
-    --nav-gold: #ffcc80;
-    --white-paper: rgba(255, 255, 255, 0.95);
-    --yellow-overlay: rgba(244, 236, 207, 0.7);
-    --soft-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --heavy-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    --transition-speed: 0.3s ease-in-out;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -27,27 +45,28 @@ body {
     color: var(--dark-brown);
     min-height: 100vh;
     line-height: 1.6;
-    /* Background: Van Gogh with Overlay */
-    background: linear-gradient(var(--yellow-overlay), var(--yellow-overlay)),
-                url('https://cdn.luxatic.com/wp-content/uploads/2019/02/Vincent-van-Gogh.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    
+    /* Starry Night Background Implementation */
+    background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+                url('https://cdn.luxatic.com/wp-content/uploads/2019/02/Vincent-van-Gogh.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
-/* --- 2. TOP NAVIGATION BAR --- */
+/* --- 3. TOP NAVIGATION BAR --- */
 .nav {
     background-color: var(--primary-brown);
     width: 100%;
-    padding: 18px 0;
+    padding: 20px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 .nav-list {
@@ -62,30 +81,32 @@ body {
     text-decoration: none;
     color: var(--nav-gold);
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+    text-transform: capitalize;
     letter-spacing: 0.5px;
-    transition: var(--transition-speed);
+    transition: var(--transition-standard);
 }
 
 .nav-link:hover {
     color: #ffffff;
-    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    transform: translateY(-2px);
 }
 
-/* --- 3. VERTICAL SIDE TABS --- */
+/* --- 4. VERTICAL SIDEBAR TABS --- */
 .side-menu {
     position: fixed;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(93, 64, 55, 0.9);
-    padding: 35px 12px;
-    border-radius: 0 25px 25px 0;
+    padding: 40px 15px;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 45px;
     z-index: 999;
-    box-shadow: 3px 0 20px rgba(0,0,0,0.3);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
 }
 
 .side-link {
@@ -97,114 +118,63 @@ body {
     font-weight: 700;
     font-size: 0.95rem;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    transition: var(--transition-speed);
+    letter-spacing: 2px;
+    transition: var(--transition-standard);
 }
 
 .side-link:hover {
     color: var(--nav-gold);
-    transform: rotate(180deg) scale(1.1);
+    transform: rotate(180deg) scale(1.15);
 }
 
-/* --- 4. MAIN CONTENT AREA --- */
+/* --- 5. MAIN CONTENT CONTAINERS --- */
 main {
     flex: 1;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 70px 20px;
+    padding: 80px 20px;
 }
 
-/* Scrollable White Container for Tutorials & History */
+/* The scrollable white "Paper" container */
 .content-container {
     background: var(--white-paper);
     width: 100%;
-    max-width: 1100px;
-    padding: 60px 40px;
-    border-radius: 35px;
-    box-shadow: var(--heavy-shadow);
+    max-width: 1150px;
+    padding: 60px 45px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow);
     text-align: center;
-    margin-bottom: 50px;
-    border: 1px solid rgba(255,255,255,0.3);
+    margin-bottom: 60px;
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
-/* --- 5. TYPOGRAPHY & HEADINGS --- */
+/* --- 6. TYPOGRAPHY & HEADERS --- */
 .home-title {
     font-family: 'Cinzel', serif;
     font-size: 5.5rem;
     color: #1a237e;
-    margin-top: 20px;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+    margin-bottom: 0;
+    text-shadow: var(--text-shadow-light);
 }
 
 .home-subtitle {
     font-style: italic;
     color: var(--primary-brown);
     font-size: 2rem;
-    margin-bottom: 45px;
+    margin-bottom: 50px;
+    font-weight: 400;
 }
 
 .page-header {
     font-family: 'Bangers', cursive;
     font-size: 4.5rem;
     color: var(--accent-orange);
-    letter-spacing: 4px;
-    margin-bottom: 50px;
     text-transform: uppercase;
-}
-
-/* --- 6. HOME PAGE LOGIN FORM --- */
-.login-card {
-    background: #ffffff;
-    padding: 55px;
-    border-radius: 30px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: var(--heavy-shadow);
-    text-align: center;
-}
-
-.login-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 35px;
-    color: var(--primary-brown);
-    font-weight: 700;
-}
-
-.form-input {
-    width: 100%;
-    padding: 18px 22px;
-    margin-bottom: 22px;
-    border: 2px solid #e0e0e0;
-    border-radius: 15px;
-    font-size: 1.05rem;
-    outline: none;
-    transition: var(--transition-speed);
-}
-
-.form-input:focus {
-    border-color: var(--primary-brown);
-    box-shadow: 0 0 8px rgba(93, 64, 55, 0.2);
-}
-
-.btn-submit {
-    background: var(--primary-brown);
-    color: #ffffff;
-    border: none;
-    padding: 18px;
-    width: 100%;
-    border-radius: 15px;
-    font-weight: 800;
-    font-size: 1.25rem;
-    cursor: pointer;
-    transition: var(--transition-speed);
-}
-
-.btn-submit:hover {
-    background: var(--dark-brown);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 60px;
+    letter-spacing: 4px;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.05);
 }
 
 /* --- 7. CARDS (TUTORIALS & HISTORY) --- */
@@ -212,36 +182,36 @@ main {
     text-decoration: none;
     color: inherit;
     display: block;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .card, .history-card {
     background: #ffffff;
-    padding: 35px;
-    border-radius: 25px;
+    padding: 40px;
+    border-radius: var(--border-radius-md);
     display: flex;
     align-items: center;
-    gap: 35px;
+    gap: 40px;
     text-align: left;
-    box-shadow: var(--soft-shadow);
-    border: 1px solid rgba(0,0,0,0.03);
-    transition: var(--transition-speed);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    border: 1px solid #f5f5f5;
+    transition: var(--transition-standard);
 }
 
 .card:hover, .history-card:hover {
-    transform: scale(1.015);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
 }
 
-/* Circle Profile Pics for Artists */
+/* Artist Profile Circles (Juan Luna, Amorsolo, etc.) */
 .artist-pic {
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
     border-radius: 50%;
     overflow: hidden;
     border: 6px solid var(--primary-brown);
     flex-shrink: 0;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 .artist-pic img {
@@ -250,47 +220,98 @@ main {
     object-fit: cover;
 }
 
-/* Rectangular Previews */
+/* Rectangular Previews for Art/Videos */
 .card-thumb, .art-preview {
-    width: 300px;
-    border-radius: 18px;
+    width: 320px;
+    border-radius: var(--border-radius-sm);
     flex-shrink: 0;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* Card Content Text */
-.card-text h3, .artist-info h2 {
+/* Card Text Styling */
+.artist-info h2, .card-text h3 {
     color: var(--accent-orange);
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 15px;
 }
 
 .modern-header {
     font-family: 'Bangers', cursive;
+    letter-spacing: 2px;
 }
 
-.card-text p, .artist-info p {
+.artist-info p, .card-text p {
+    font-size: 1.1rem;
+    color: #5d4037;
+    line-height: 1.8;
+}
+
+/* --- 8. LOGIN FORM STYLES --- */
+.login-card {
+    background: #ffffff;
+    padding: 60px;
+    border-radius: var(--border-radius-lg);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.login-card h3 {
+    margin-bottom: 35px;
+    font-size: 1.8rem;
+    color: var(--primary-brown);
+    font-weight: 800;
+}
+
+.form-input {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 2px solid #eeeeee;
+    border-radius: 15px;
     font-size: 1.05rem;
-    line-height: 1.7;
-    color: #4e342e;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
-/* --- 8. FOOTER --- */
+.form-input:focus {
+    border-color: var(--primary-brown);
+}
+
+.btn-submit {
+    background: var(--primary-brown);
+    color: #ffffff;
+    border: none;
+    padding: 20px;
+    width: 100%;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: var(--transition-standard);
+}
+
+.btn-submit:hover {
+    background: var(--dark-brown);
+    transform: scale(1.02);
+}
+
+/* --- 9. FOOTER SECTION --- */
 .footer {
     width: 100%;
     text-align: center;
     padding: 60px 20px;
     color: var(--primary-brown);
-    background: rgba(255,255,255,0.05);
+    font-size: 1.15rem;
 }
 
 .footer p {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
-/* --- 9. RESPONSIVE DESIGN --- */
-@media (max-width: 900px) {
+/* --- 10. MEDIA QUERIES (RESPONSIVENESS) --- */
+@media (max-width: 950px) {
     .card, .history-card {
         flex-direction: column;
         text-align: center;
@@ -298,10 +319,16 @@ main {
     }
     
     .side-menu {
-        display: none; /* Hide sidebar tabs on tablet/mobile */
+        display: none;
     }
     
     .home-title {
         font-size: 3.5rem;
     }
+    
+    .page-header {
+        font-size: 3rem;
+    }
 }
+
+/* END OF STYLESHEET */
